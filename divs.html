@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <title>Divs Assignment 7</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            background-color: red;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px;
+            border: 2px solid black;
+            justify-content: center;
+        }
+
+        .divlist {
+            background-color: rgb(209, 149, 11);
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+            min-width: 80px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #070312;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) { 
+            .flex-container {
+                flex-direction: column;
+                background-color: green;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Himaja Kaishetty Builds List with Divs</h2>
+
+    <input type="text" id="inputText" placeholder="Enter text">
+    <button id="addEndBtn">Add End</button>
+    <button id="addFrontBtn">Add Front</button>
+    <button id="removeMiddleBtn">Remove Middle</button>
+    <button id="promoteBtn">Promote</button>
+
+    <div class="flex-container" id="target">
+        <div class="divlist">Row Item 1</div>
+        <div class="divlist">Row Item 2</div>
+        <div class="divlist">Row Item 3</div>
+    </div>
+
+    <script>
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        document.getElementById("addEndBtn").addEventListener("click", function() {
+            let inputElement = document.getElementById("inputText");
+            let textValue = inputElement.value.trim();
+
+            if (textValue !== "") {
+                let newDiv = document.createElement("div");
+                newDiv.innerHTML = textValue;
+                newDiv.className = "divlist";
+
+                document.getElementById("target").appendChild(newDiv);
+                inputElement.value = ""; 
+            } else {
+                alert("Please enter text before adding.");
+            }
+        });
+
+        document.getElementById("addFrontBtn").addEventListener("click", function() {
+            addFront();
+        });
+
+        document.getElementById("removeMiddleBtn").addEventListener("click", function() {
+            removeMiddle();
+        });
+
+        document.getElementById("promoteBtn").addEventListener("click", function() {
+            promoteItem();
+        });
+
+        function addFront() {
+            let inputElement = document.getElementById("inputText");
+            let textValue = inputElement.value.trim();
+
+            if (textValue !== "") {
+                let newDiv = document.createElement("div");
+                newDiv.innerHTML = textValue;
+                newDiv.className = "divlist";
+
+                let container = document.getElementById("target");
+                container.insertBefore(newDiv, container.firstChild);
+                inputElement.value = ""; 
+            } else {
+                alert("Please enter text before adding.");
+            }
+        }
+
+        function removeMiddle() {
+            let divListItems = document.getElementsByClassName("divlist");
+            let length = divListItems.length;
+
+            if (length > 0) {
+                let middleIndex = Math.floor(length / 2);
+                divListItems[middleIndex].remove();
+            } else {
+                alert("No items to remove.");
+            }
+        }
+
+        function promoteItem() {
+            let divListItems = document.getElementsByClassName("divlist");
+            let length = divListItems.length;
+
+            if (length > 1) {
+                let randomIndex = getRandom(1, length - 1); // Select a random item except the first one
+                let itemToMove = divListItems[randomIndex];
+
+                itemToMove.parentNode.insertBefore(itemToMove, divListItems[randomIndex - 1]);
+            } else {
+                alert("Not enough items to promote.");
+            }
+        }
+    </script>
+
+</body>
+</html>
