@@ -140,7 +140,7 @@
             let length = divListItems.length;
 
             if (length > 1) {
-                let randomIndex = getRandom(1, length - 1); // Select a random item except the first one
+                let randomIndex = getRandom(1, length - 1); 
                 let itemToMove = divListItems[randomIndex];
 
                 itemToMove.parentNode.insertBefore(itemToMove, divListItems[randomIndex - 1]);
